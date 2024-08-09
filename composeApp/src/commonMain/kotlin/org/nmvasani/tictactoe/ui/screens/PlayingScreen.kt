@@ -33,7 +33,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import org.nmvasani.tictactoe.viewmodels.MainViewModel
 import tictactoe.composeapp.generated.resources.Res
-import tictactoe.composeapp.generated.resources.crosspng
+import tictactoe.composeapp.generated.resources.cross
 import tictactoe.composeapp.generated.resources.zero
 
 @Composable
@@ -100,7 +100,7 @@ fun TicTacToeGrid(
                         ) {
                         if (board[row][col].isNotEmpty()) {
                             Image(
-                                painter = if (board[row][col] == "X") painterResource(Res.drawable.crosspng)
+                                painter = if (board[row][col] == "X") painterResource(Res.drawable.cross)
                                 else painterResource(Res.drawable.zero),
                                 contentDescription = ""
                             )

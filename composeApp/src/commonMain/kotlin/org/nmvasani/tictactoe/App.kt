@@ -14,6 +14,7 @@ import org.koin.compose.KoinApplication
 import org.nmvasani.tictactoe.di.viewModelModule
 import org.nmvasani.tictactoe.ui.screens.MainScreen
 import org.nmvasani.tictactoe.ui.screens.PlayingScreen
+import org.nmvasani.tictactoe.ui.screens.SelectionScreen
 
 @Composable
 @Preview
@@ -28,7 +29,7 @@ fun App() {
                     composable("main_screen") {
                         MainScreen(
                             onNavigateToSinglePlayer = {
-                                navController.navigate("single_player")
+                                navController.navigate("selection_screen")
                             },
                             onNavigateToMultiPlayer = {
                                 navController.navigate("multi_player")
@@ -41,7 +42,9 @@ fun App() {
                     composable("multi_player") {
                         PlayingScreen()
                     }
-
+                    composable("selection_screen"){
+                        SelectionScreen()
+                    }
                 }
             }
         }
