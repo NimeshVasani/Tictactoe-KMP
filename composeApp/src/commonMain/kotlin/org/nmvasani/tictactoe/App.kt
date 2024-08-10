@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.nmvasani.tictactoe.di.viewModelModule
+import org.nmvasani.tictactoe.ui.colors.Colors
 import org.nmvasani.tictactoe.ui.screens.MainScreen
 import org.nmvasani.tictactoe.ui.screens.PlayingScreen
 import org.nmvasani.tictactoe.ui.screens.SelectionScreen
@@ -24,7 +25,10 @@ fun App() {
     }) {
         MaterialTheme {
             val navController = rememberNavController()
-            Scaffold(modifier = Modifier.fillMaxSize(), backgroundColor = Color(246,248,247,255)) {
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                backgroundColor = Colors.SurfaceWhite
+            ) {
                 NavHost(navController = navController, startDestination = "main_screen") {
                     composable("main_screen") {
                         MainScreen(
@@ -42,8 +46,14 @@ fun App() {
                     composable("multi_player") {
                         PlayingScreen()
                     }
-                    composable("selection_screen"){
-                        SelectionScreen()
+                    composable("selection_screen") {
+                        SelectionScreen(onBack = {
+                            navController.navigateUp()
+                        },
+                            onNavigateToSinglePlayer = {
+                                navController.navigate("single_player")
+                            }
+                        )
                     }
                 }
             }
