@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.nmvasani.tictactoe.repositories.Difficulty
 import org.nmvasani.tictactoe.repositories.MainRepository
@@ -23,6 +22,11 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     val currentPlayer = mutableStateOf(repository.currentPlayer)
     val gameOver = mutableStateOf(repository.gameOver)
     val winner = mutableStateOf(repository.winner)
+    private val _isReset = MutableStateFlow(false)
+    val isReset: StateFlow<Boolean> = _isReset
+
+    val winningCells = mutableStateOf(repository.winningCells)
+
 
     val difficulty = MutableStateFlow(repository.difficulty)
 
@@ -50,12 +54,14 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     private fun updateState() {
         _board.value = repository.board
         currentPlayer.value = repository.currentPlayer
+        winningCells.value = repository.winningCells
         gameOver.value = repository.gameOver
         winner.value = repository.winner
     }
 
     fun resetGame() {
         repository.resetGame()
+        _isReset.value = true
         updateState()
     }
 }

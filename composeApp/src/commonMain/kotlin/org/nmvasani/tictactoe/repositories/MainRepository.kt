@@ -5,8 +5,9 @@ class MainRepository {
     var currentPlayer: String = "X"
     var gameOver: Boolean = false
     var winner: String? = null
-    var isEnable: Boolean = true
     var difficulty: Difficulty = Difficulty.EASY
+    var winningCells: List<Pair<Int, Int>>? = null
+
 
     fun makeMove(row: Int, col: Int): Boolean {
         if (board[row][col].isEmpty() && !gameOver) {
@@ -16,6 +17,7 @@ class MainRepository {
                 gameOver = true
             } else if (board.all { row -> row.all { it.isNotEmpty() } }) {
                 gameOver = true
+                winningCells = null
             } else {
                 currentPlayer = if (currentPlayer == "X") "O" else "X"
             }
@@ -125,18 +127,41 @@ class MainRepository {
     }
 
     private fun checkWinner(): String? {
-        // Check rows, columns and diagonals for a win
+
+        // Check rows, columns, and diagonals for a win
         for (player in arrayOf("X", "O")) {
-            if (board.any { row -> row.all { it == player } } ||
-                (0..2).any { col -> board.all { row -> row[col] == player } } ||
-                (0..2).all { i -> board[i][i] == player } ||
-                (0..2).all { i -> board[i][2 - i] == player }
-            ) {
+            // Check rows
+            for (row in 0..2) {
+                if (board[row].all { it == player }) {
+                    winningCells = listOf(Pair(row, 0), Pair(row, 1), Pair(row, 2))
+                    return player
+                }
+            }
+
+            // Check columns
+            for (col in 0..2) {
+                if (board.all { row -> row[col] == player }) {
+                    winningCells = listOf(Pair(0, col), Pair(1, col), Pair(2, col))
+                    return player
+                }
+            }
+
+            // Check the first diagonal (top-left to bottom-right)
+            if ((0..2).all { i -> board[i][i] == player }) {
+                winningCells = listOf(Pair(0, 0), Pair(1, 1), Pair(2, 2))
+                return player
+            }
+
+            // Check the second diagonal (top-right to bottom-left)
+            if ((0..2).all { i -> board[i][2 - i] == player }) {
+                winningCells = listOf(Pair(0, 2), Pair(1, 1), Pair(2, 0))
                 return player
             }
         }
+
         return null
     }
+
 
     private fun checkWin(player: String): Boolean {
         return checkWinner() == player
@@ -147,6 +172,7 @@ class MainRepository {
         currentPlayer = "X"
         gameOver = false
         winner = null
+        winningCells = null
     }
 }
 
