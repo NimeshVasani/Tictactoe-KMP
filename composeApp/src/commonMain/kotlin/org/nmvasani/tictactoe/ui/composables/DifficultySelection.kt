@@ -1,16 +1,10 @@
 package org.nmvasani.tictactoe.ui.composables
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -23,10 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.nmvasani.tictactoe.repositories.Difficulty
 import org.nmvasani.tictactoe.ui.colors.Colors
-import org.nmvasani.tictactoe.viewmodels.MainViewModel
+import org.nmvasani.tictactoe.viewmodels.SinglePlayerViewModel
 
 @Composable
-fun DifficultySelection(viewModel: MainViewModel) {
+fun DifficultySelection(viewModel: SinglePlayerViewModel) {
     val difficulties = Difficulty.entries.toTypedArray()
     val selectedDifficulty = viewModel.difficulty.collectAsState()
     Row(

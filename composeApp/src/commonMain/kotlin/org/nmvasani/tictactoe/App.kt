@@ -5,7 +5,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,8 +13,9 @@ import org.koin.compose.KoinApplication
 import org.nmvasani.tictactoe.di.viewModelModule
 import org.nmvasani.tictactoe.ui.colors.Colors
 import org.nmvasani.tictactoe.ui.screens.MainScreen
-import org.nmvasani.tictactoe.ui.screens.PlayingScreen
+import org.nmvasani.tictactoe.ui.screens.MultiplayerScreen
 import org.nmvasani.tictactoe.ui.screens.SelectionScreen
+import org.nmvasani.tictactoe.ui.screens.SinglePlayerScreen
 
 @Composable
 @Preview
@@ -41,17 +41,24 @@ fun App() {
                         )
                     }
                     composable("single_player") {
-                        PlayingScreen()
+                        SinglePlayerScreen(onBack = {
+                            navController.navigateUp()
+                        })
                     }
                     composable("multi_player") {
-                        PlayingScreen()
+                        MultiplayerScreen(onBack = {
+                            navController.navigateUp()
+                        })
                     }
                     composable("selection_screen") {
                         SelectionScreen(onBack = {
                             navController.navigateUp()
                         },
                             onNavigateToSinglePlayer = {
-                                navController.navigate("single_player")
+                                navController.navigate("single_player") {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
                         )
                     }

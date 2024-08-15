@@ -13,15 +13,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,9 +36,9 @@ import org.koin.compose.koinInject
 import org.nmvasani.tictactoe.ui.colors.Colors
 import org.nmvasani.tictactoe.ui.composables.CustomRadioButton
 import org.nmvasani.tictactoe.ui.composables.DifficultySelection
-import org.nmvasani.tictactoe.viewmodels.MainViewModel
+import org.nmvasani.tictactoe.ui.composables.IosBackButton
+import org.nmvasani.tictactoe.viewmodels.SinglePlayerViewModel
 import tictactoe.composeapp.generated.resources.Res
-import tictactoe.composeapp.generated.resources.baseline_arrow_back_ios_new_24
 import tictactoe.composeapp.generated.resources.cross
 import tictactoe.composeapp.generated.resources.zero
 
@@ -48,25 +47,18 @@ fun SelectionScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
     onNavigateToSinglePlayer: () -> Unit,
-    viewModel: MainViewModel = koinInject()
+    viewModel: SinglePlayerViewModel = koinInject()
 ) {
     var selected by remember { mutableStateOf(1) }
+    val userSelected by viewModel.userSelected.collectAsState()
+    LaunchedEffect(Unit) {
+        selected = if (userSelected == "X") 1 else 2
+    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        IconButton(
-            onClick = {
-                onBack()
-            },
-            modifier = Modifier.padding(top = 70.dp, start = 20.dp).size(30.dp)
-                .align(Alignment.TopStart),
-        ) {
-            Icon(
-                painter = painterResource(Res.drawable.baseline_arrow_back_ios_new_24),
-                contentDescription = "background",
-                tint = Colors.SkyBlue,
-                modifier = Modifier.fillMaxSize(),
-            )
+        IosBackButton {
+            onBack()
         }
         Column(
             verticalArrangement = Arrangement.Center,
@@ -75,7 +67,7 @@ fun SelectionScreen(
         ) {
             Text(
                 text = "Pick your side",
-                color = Color.Blue.copy(0.82f),
+                color = Colors.EgyptianBlue,
                 fontSize = 22.sp,
                 fontWeight = W600
             )
@@ -147,8 +139,11 @@ fun SelectionScreen(
             Spacer(modifier = Modifier.height(50.dp))
             Button(
                 onClick = {
+                    viewModel.setCurrentPlayer(if (selected == 1) "X" else "O")
+                    println(viewModel.userSelected.value)
                     onNavigateToSinglePlayer()
                 },
+
                 modifier = Modifier.width(150.dp).height(50.dp),
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),

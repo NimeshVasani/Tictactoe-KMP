@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import org.jetbrains.compose.resources.painterResource
 import tictactoe.composeapp.generated.resources.Res
 import tictactoe.composeapp.generated.resources.cross
@@ -42,9 +44,8 @@ fun TicTacToeGrid(
     isEnable: Boolean = true,
     resetTrigger: MutableState<Boolean>,
     gameOver: MutableState<Boolean>,
-    winningLine: MutableState<List<Pair<Int, Int>>?> // Start and end of the winning line
-
-
+    winningLine: MutableState<List<Pair<Int, Int>>?>, // Start and end of the winning line
+    userSelected: StateFlow<String> = MutableStateFlow("X")
 ) {
     val cellSize = 120.dp
     val animVal = remember { Animatable(0f) }
@@ -63,15 +64,16 @@ fun TicTacToeGrid(
         }
     }
     LaunchedEffect(winningLine.value) {
-        if (!resetTrigger.value) {
-            animWin.snapTo(0f) // Instantly reset animation to the start
-            delay(100) // Optional delay before starting the new animation
+        println("winning changed")
+        if (winningLine.value != null) {
             animWin.animateTo(
                 targetValue = 1f,
                 animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
             )
-
+        } else {
+            animWin.snapTo(0f)
         }
+
     }
 
     Box(
@@ -137,8 +139,9 @@ fun TicTacToeGrid(
                             contentAlignment = Alignment.Center,
                         ) {
                             if (board[row][col].isNotEmpty()) {
+                                println(userSelected.value+ board[row][col])
                                 Image(
-                                    painter = if (board[row][col] == "X") painterResource(Res.drawable.cross)
+                                    painter = if (board[row][col] == userSelected.value) painterResource(Res.drawable.cross)
                                     else painterResource(Res.drawable.zero),
                                     contentDescription = "",
                                     contentScale = ContentScale.Crop,
@@ -150,26 +153,26 @@ fun TicTacToeGrid(
                 }
             }
         }
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            val strokeWidthPx = 2.dp.toPx()
-            val cellSizePx = cellSize.toPx()
+        if (winningLine.value != null)
+            Canvas(modifier = Modifier.fillMaxSize()) {
+                val strokeWidthPx = 2.dp.toPx()
+                val cellSizePx = cellSize.toPx()
 
-            // Draw the winning line if the game is over and there's a winning line
-            if (gameOver.value && winningLine.value != null) {
-                val (start, _, end) = winningLine.value!!
+                // Draw the winning line if the game is over and there's a winning line
+                if (gameOver.value && winningLine.value != null) {
+                    val (start, _, end) = winningLine.value!!
+                    val startX = start.second * cellSizePx + cellSizePx / 2
+                    val startY = start.first * cellSizePx + cellSizePx / 2
+                    val endX = end.second * cellSizePx + cellSizePx / 2
+                    val endY = end.first * cellSizePx + cellSizePx / 2
 
-                val startX = start.second * cellSizePx + cellSizePx / 2
-                val startY = start.first * cellSizePx + cellSizePx / 2
-                val endX = end.second * cellSizePx + cellSizePx / 2
-                val endY = end.first * cellSizePx + cellSizePx / 2
-
-                drawLine(
-                    color = Color.Red,
-                    start = Offset(startX, startY),
-                    end = Offset(animWin.value * endX, animWin.value * endY),
-                    strokeWidth = strokeWidthPx
-                )
+                    drawLine(
+                        color = Color.Red,
+                        start = Offset(startX, startY),
+                        end = Offset(animWin.value * endX, animWin.value * endY),
+                        strokeWidth = strokeWidthPx
+                    )
+                }
             }
-        }
     }
 }

@@ -7,11 +7,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.Single
 import org.nmvasani.tictactoe.repositories.Difficulty
-import org.nmvasani.tictactoe.repositories.MainRepository
+import org.nmvasani.tictactoe.repositories.SinglePlayerRepository
 
-class MainViewModel(private val repository: MainRepository) : ViewModel() {
+@Single
+@KoinViewModel
+class SinglePlayerViewModel(private val repository: SinglePlayerRepository) : ViewModel() {
 
     private val _board = MutableStateFlow(repository.board)
     val board: StateFlow<Array<Array<String>>> = _board
@@ -24,6 +29,8 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     val winner = mutableStateOf(repository.winner)
     private val _isReset = MutableStateFlow(false)
     val isReset: StateFlow<Boolean> = _isReset
+    private val _userSelected: MutableStateFlow<String> = MutableStateFlow("X")
+    val userSelected = _userSelected.asStateFlow()
 
     val winningCells = mutableStateOf(repository.winningCells)
 
@@ -39,7 +46,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         if (repository.makeMove(row, col)) {
             updateState()
 
-            if (repository.currentPlayer == "O" && !repository.gameOver) {
+            if (repository.currentPlayer != "X" && !repository.gameOver) {
                 viewModelScope.launch(Dispatchers.Default) {
                     _isEnable.value = false
                     delay(1000L)
@@ -54,14 +61,18 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
     private fun updateState() {
         _board.value = repository.board
         currentPlayer.value = repository.currentPlayer
-        winningCells.value = repository.winningCells
         gameOver.value = repository.gameOver
         winner.value = repository.winner
+        winningCells.value = repository.winningCells
     }
 
     fun resetGame() {
         repository.resetGame()
         _isReset.value = true
         updateState()
+    }
+
+    fun setCurrentPlayer(who: String) {
+        _userSelected.value = who
     }
 }

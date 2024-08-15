@@ -52,7 +52,7 @@ fun MainScreen(
 
         Text(
             text = "Choose your play mode",
-            color = Color.Blue.copy(0.82f),
+            color = Colors.EgyptianBlue,
             fontSize = 22.sp,
             fontWeight = W600
         )
