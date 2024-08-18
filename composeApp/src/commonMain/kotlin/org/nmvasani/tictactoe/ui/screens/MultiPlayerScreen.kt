@@ -44,7 +44,8 @@ import org.nmvasani.tictactoe.viewmodels.MultiplayerViewModel
 fun MultiplayerScreen(
     modifier: Modifier = Modifier,
     viewModel: MultiplayerViewModel = koinInject(),
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onSettingClick: () -> Unit
 ) {
     val board by viewModel.board.collectAsState()
     val currentPlayer by remember { viewModel.currentPlayer }
@@ -199,7 +200,10 @@ fun MultiplayerScreen(
                         modifier = Modifier.fillMaxSize().padding(0.dp),
                     )
                 },
-                mainSize = 60.dp
+                mainSize = 60.dp,
+                onClick = {
+                    onSettingClick()
+                }
             )
         }
     }

@@ -81,6 +81,9 @@ kotlin {
 
             api(libs.koin.annotations)
 
+            implementation(libs.compose.multiplatform.media.player)
+
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -124,6 +127,9 @@ android {
     dependencies {
         debugImplementation(compose.uiTooling)
     }
+}
+dependencies {
+    implementation(libs.androidx.media3.common)
 }
 
 compose.desktop {

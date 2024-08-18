@@ -25,7 +25,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RotatingIcon(
     icon: @Composable () -> Unit,
-    mainSize: Dp
+    mainSize: Dp,
+    onClick: () -> Unit
 ) {
     val infiniteTransition = rememberInfiniteTransition()
     val rotation by infiniteTransition.animateFloat(
@@ -38,7 +39,9 @@ fun RotatingIcon(
     )
 
     Button(
-        onClick = {},
+        onClick = {
+            onClick()
+        },
         modifier = Modifier
             .size(mainSize)
             .shadow(

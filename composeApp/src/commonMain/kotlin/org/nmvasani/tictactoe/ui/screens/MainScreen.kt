@@ -33,8 +33,10 @@ import tictactoe.composeapp.generated.resources.mainlogo
 @Composable
 fun MainScreen(
     onNavigateToSinglePlayer: () -> Unit,
-    onNavigateToMultiPlayer: () -> Unit
+    onNavigateToMultiPlayer: () -> Unit,
+    onSettingClick: () -> Unit
 ) {
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -102,7 +104,10 @@ fun MainScreen(
                     modifier = Modifier.fillMaxSize().padding(0.dp),
                 )
             },
-            mainSize = 60.dp
+            mainSize = 60.dp,
+            onClick = {
+                onSettingClick()
+            }
         )
     }
 }

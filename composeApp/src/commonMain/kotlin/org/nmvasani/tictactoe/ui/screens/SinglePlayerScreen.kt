@@ -44,7 +44,8 @@ import org.nmvasani.tictactoe.viewmodels.SinglePlayerViewModel
 fun SinglePlayerScreen(
     modifier: Modifier = Modifier,
     viewModel: SinglePlayerViewModel = koinInject(),
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onSettingClick: () -> Unit
 ) {
     val board by viewModel.board.collectAsState()
     val currentPlayer by remember { viewModel.currentPlayer }
@@ -201,7 +202,10 @@ fun SinglePlayerScreen(
                         modifier = Modifier.fillMaxSize().padding(0.dp),
                     )
                 },
-                mainSize = 60.dp
+                mainSize = 60.dp,
+                onClick = {
+                    onSettingClick()
+                }
             )
         }
     }
