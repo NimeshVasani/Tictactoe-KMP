@@ -42,8 +42,8 @@ import org.nmvasani.tictactoe.viewmodels.SinglePlayerViewModel
 
 @Composable
 fun SinglePlayerScreen(
-    modifier: Modifier = Modifier,
     viewModel: SinglePlayerViewModel = koinInject(),
+    player1Name: String,
     onBack: () -> Unit,
     onSettingClick: () -> Unit
 ) {
@@ -98,7 +98,7 @@ fun SinglePlayerScreen(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp)
             ) {
                 Text(
-                    text = "Alex",
+                    text = player1Name,
                     color = Colors.EgyptianBlue,
                     fontWeight = FontWeight.W600,
                     fontSize = 18.sp,

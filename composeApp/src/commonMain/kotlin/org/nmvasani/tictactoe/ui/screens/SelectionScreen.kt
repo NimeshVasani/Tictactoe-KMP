@@ -44,13 +44,13 @@ import tictactoe.composeapp.generated.resources.zero
 
 @Composable
 fun SelectionScreen(
-    modifier: Modifier = Modifier,
     onBack: () -> Unit,
     onNavigateToSinglePlayer: () -> Unit,
     viewModel: SinglePlayerViewModel = koinInject()
 ) {
     var selected by remember { mutableStateOf(1) }
     val userSelected by viewModel.userSelected.collectAsState()
+
     LaunchedEffect(Unit) {
         selected = if (userSelected == "X") 1 else 2
     }

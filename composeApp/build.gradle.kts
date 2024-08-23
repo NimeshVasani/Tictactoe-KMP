@@ -61,6 +61,8 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
             implementation(libs.koin.annotations)
+            implementation(libs.androidx.media3.exoplayer)
+
 
         }
         commonMain.dependencies {
@@ -82,6 +84,9 @@ kotlin {
             api(libs.koin.annotations)
 
             implementation(libs.compose.multiplatform.media.player)
+
+            implementation(libs.androidx.datastore.preferences)
+            implementation(libs.androidx.datastore)
 
 
         }

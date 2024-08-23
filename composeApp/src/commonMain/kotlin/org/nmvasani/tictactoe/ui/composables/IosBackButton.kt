@@ -12,11 +12,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,7 +23,7 @@ import tictactoe.composeapp.generated.resources.Res
 import tictactoe.composeapp.generated.resources.baseline_arrow_back_ios_new_24
 
 @Composable
-fun IosBackButton(modifier: Modifier = Modifier, onBack: () -> Unit) {
+fun IosBackButton(onBack: () -> Unit) {
     Row(
         modifier = Modifier.padding(top = 70.dp, start = 20.dp).height(30.dp)
             .clickable(
@@ -55,12 +52,4 @@ fun IosBackButton(modifier: Modifier = Modifier, onBack: () -> Unit) {
             fontWeight = W500
         )
     }
-}
-
-fun Modifier.clickWithRedRipple(color: Color, onClick: () -> Unit): Modifier = composed {
-    this.clickable(
-        interactionSource = remember { MutableInteractionSource() },
-        indication = rememberRipple(color = color),
-        onClick = onClick
-    )
 }
