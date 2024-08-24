@@ -1,21 +1,73 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+🎮 Tic Tac Toe - KMP Compose Multiplatform Game
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+Welcome to Tic Tac Toe, a modern, cross-platform game developed using Kotlin Multiplatform and Jetpack Compose! This game is packed with exciting features, smooth animations, and flexible gameplay options. Let's dive into the details!
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+📸 Screenshots & Demo Video
 
+Gameplay Screenshot 
+Settings Screen 
+Multiplayer Mode 
+Demo Video Watch Now
+✨ Features
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+🕹️ Gameplay Modes
+Single Player Mode: Play against the AI with three difficulty levels - Easy, Medium, and Hard.
+Multiplayer Mode: Challenge a friend and enjoy the classic game together!
+🎨 Smooth Animations
+Rotating settings icon for a dynamic UI experience.
+Animated Tic Tac Toe grid lines to enhance the gameplay.
+🔊 Sound & Music Control
+Separate logic for managing sound and music settings.
+Toggle game sounds and background music from the settings screen.
+🛠️ Built with Modern Tools
+Kotlin Multiplatform (KMP): Enjoy seamless gameplay on both Android and iOS.
+Jetpack Compose: Compose Multiplatform UI for a consistent look and feel across platforms.
+Koin for Dependency Injection: Easy-to-manage dependencies across the entire app.
+ViewModel & Repository Pattern: Clean architecture for better state management and testability.
+🔧 Settings & Customization
+Customize player names and preferences directly from the settings screen.
+Use shared preferences to save and load user settings effortlessly.
+📚 Technologies Used
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
+Kotlin Multiplatform: To support Android and iOS.
+Jetpack Compose Multiplatform: For the UI layer.
+Koin: For Dependency Injection.
+ViewModel: To handle UI-related data in a lifecycle-conscious way.
+ExoPlayer: For handling audio playback (on Android).
+AVAudioPlayer: For handling audio playback (on iOS).
+SharedPreferences: For saving user settings.
+🚀 Getting Started
 
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+Prerequisites
+Kotlin 1.8.0 or higher
+Android Studio 2022.2.1 or higher
+Xcode 13.2 or higher (for iOS development)
+Installation
+Clone the repository:
+bash
+Copy code
+git clone https://github.com/NimeshVasani/Tictactoe-KMP.git
+cd Tictactoe-KMP
+Open with Android Studio:
+Open the project using Android Studio.
+Run on an Android device or emulator.
+Build for iOS:
+Open the iosApp folder in Xcode.
+Run on an iOS simulator or a physical device.
+📖 Usage
+
+Navigate through different screens using the built-in navigation.
+Select your game mode and difficulty level.
+Adjust the sound and music settings from the settings screen.
+🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request or open an issue for any bugs or feature requests.
+
+📄 License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+📬 Contact
+
+For any inquiries or feedback, please contact me at nimesh.vasani@example.com.
+
