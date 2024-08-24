@@ -3,6 +3,8 @@ package org.nmvasani.tictactoe.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -61,72 +63,28 @@ fun SettingScreen(
     var player1Name by remember { mutableStateOf("Nimesh") }
     var player2Name by remember { mutableStateOf("John") }
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         player1Name = settingViewModel.player1Name.value
         player2Name = settingViewModel.player2Name.value
     }
 
     val currentFocus = LocalFocusManager.current
 
-    Scaffold(
+    Column(
         modifier = Modifier.fillMaxSize().imePadding().pointerInput(Unit) {
             detectTapGestures(onTap = {
                 currentFocus.clearFocus()
                 player1Name = player1Name.ifEmpty { settingViewModel.player1Name.value }
                 player2Name = player2Name.ifEmpty { settingViewModel.player2Name.value }
             })
-        },
-        floatingActionButton = {
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.padding(bottom = 50.dp,start = 40.dp,end = 40.dp).fillMaxWidth()
-            ) {
-                Button(
-                    onClick = {
-                       // onSave()
-                    },
+        }
 
-                    modifier = Modifier.width(120.dp).height(50.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Colors.CherryRed),
-                    elevation = ButtonDefaults.elevation(
-                        defaultElevation = 10.dp,
-                        pressedElevation = 15.dp,
-                        disabledElevation = 0.dp
-                    )
-                ) {
-                    Text("Reset", color = Color.White, fontSize = 18.sp)
-                }
-
-                Button(
-                    onClick = {
-                        settingViewModel.setPlayer1Name(player1Name)
-                        settingViewModel.setPlayer2Name(player2Name)
-
-                        onSave()
-                    },
-
-                    modifier = Modifier.width(120.dp).height(50.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Colors.ForestGreen),
-                    elevation = ButtonDefaults.elevation(
-                        defaultElevation = 10.dp,
-                        pressedElevation = 15.dp,
-                        disabledElevation = 0.dp
-                    )
-                ) {
-                    Text("Save", color = Color.White, fontSize = 18.sp)
-                }
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true,
     ) {
         IosBackButton {
             onBack()
         }
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 180.dp),
+            modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp, top = 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
@@ -235,6 +193,52 @@ fun SettingScreen(
                         )
                     }
                 )
+            }
+            item { Spacer(modifier = Modifier.height(50.dp)) }
+            item {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.padding(bottom = 50.dp, start = 40.dp, end = 40.dp)
+                        .fillMaxWidth()
+                ) {
+                    Button(
+                        onClick = {
+                            // onSave()
+                        },
+
+                        modifier = Modifier.width(120.dp).height(50.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Colors.CherryRed),
+                        elevation = ButtonDefaults.elevation(
+                            defaultElevation = 10.dp,
+                            pressedElevation = 15.dp,
+                            disabledElevation = 0.dp
+                        )
+                    ) {
+                        Text("Reset", color = Color.White, fontSize = 18.sp)
+                    }
+
+                    Button(
+                        onClick = {
+                            settingViewModel.setPlayer1Name(player1Name)
+                            settingViewModel.setPlayer2Name(player2Name)
+
+                            onSave()
+                        },
+
+                        modifier = Modifier.width(120.dp).height(50.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Colors.ForestGreen),
+                        elevation = ButtonDefaults.elevation(
+                            defaultElevation = 10.dp,
+                            pressedElevation = 15.dp,
+                            disabledElevation = 0.dp
+                        )
+                    ) {
+                        Text("Save", color = Color.White, fontSize = 18.sp)
+                    }
+
+                }
             }
         }
     }

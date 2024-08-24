@@ -19,6 +19,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,12 +57,18 @@ fun SinglePlayerScreen(
     val winningLine = remember { viewModel.winningCells }
     val userSelected = viewModel.userSelected
     val openAlertDialog = remember { mutableStateOf(false) }
+    val score = viewModel.score.collectAsState()
 
 
+    LaunchedEffect(gameOver.value) {
+        viewModel.updateScore(winner ?: "")
+    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         IosBackButton {
+            if (gameOver.value)
+                viewModel.resetGame()
             onBack()
         }
         Column(
@@ -113,7 +120,7 @@ fun SinglePlayerScreen(
                         .background(Color.White)
                 ) {
                     Text(
-                        text = "1-2",
+                        text = "${score.value.first} - ${score.value.second}",
                         color = Colors.EgyptianBlue,
                         fontWeight = FontWeight.W700,
                         fontSize = 20.sp,

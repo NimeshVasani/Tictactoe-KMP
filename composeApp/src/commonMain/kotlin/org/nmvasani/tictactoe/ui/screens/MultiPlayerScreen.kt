@@ -42,8 +42,9 @@ import org.nmvasani.tictactoe.viewmodels.MultiplayerViewModel
 
 @Composable
 fun MultiplayerScreen(
-    modifier: Modifier = Modifier,
     viewModel: MultiplayerViewModel = koinInject(),
+    player1Name: String,
+    player2Name: String,
     onBack: () -> Unit,
     onSettingClick: () -> Unit
 ) {
@@ -71,7 +72,7 @@ fun MultiplayerScreen(
             Spacer(modifier = Modifier.height(150.dp))
             if (gameOver.value) {
                 Text(
-                    text = if (winner != null) "Winner: ${if (winner == "X") "Player 1" else "Player 2"}" else "Draw",
+                    text = if (winner != null) "Winner: ${if (winner == "X") player1Name else player2Name}" else "Draw",
                     color = Colors.ForestGreen,
                     fontWeight = FontWeight.W600,
                     fontSize = 24.sp,
@@ -97,14 +98,14 @@ fun MultiplayerScreen(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 40.dp)
             ) {
                 Text(
-                    text = "Player 1",
+                    text = player1Name,
                     color = Colors.EgyptianBlue,
                     fontWeight = FontWeight.W600,
                     fontSize = 18.sp,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.width(80.dp)
+                    modifier = Modifier.width(80.dp),
                 )
                 Box(
                     modifier = Modifier.width(100.dp)
@@ -123,13 +124,14 @@ fun MultiplayerScreen(
                 }
 
                 Text(
-                    text = "Player 2",
+                    text = player2Name,
                     color = Colors.EgyptianBlue,
                     fontWeight = FontWeight.W600,
                     fontSize = 18.sp,
                     overflow = TextOverflow.Ellipsis,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.width(80.dp)
+                    modifier = Modifier.width(80.dp),
+                    maxLines = 1
 
                 )
 

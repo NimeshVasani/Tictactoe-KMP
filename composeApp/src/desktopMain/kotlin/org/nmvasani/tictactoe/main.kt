@@ -1,5 +1,6 @@
 package org.nmvasani.tictactoe
 
+import AudioPlayer
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
@@ -14,7 +15,8 @@ fun main() {
             title = "Tic tac toe",
         ) {
             App(
-                prefs = prefs
+                prefs = prefs,
+                audioPlayer = AudioPlayer()
             )
         }
     }

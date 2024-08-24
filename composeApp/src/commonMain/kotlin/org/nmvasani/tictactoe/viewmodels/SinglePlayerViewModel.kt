@@ -28,7 +28,10 @@ class SinglePlayerViewModel(private val repository: SinglePlayerRepository) : Vi
     val gameOver = mutableStateOf(repository.gameOver)
     val winner = mutableStateOf(repository.winner)
     private val _isReset = MutableStateFlow(false)
-    val isReset: StateFlow<Boolean> = _isReset
+
+    private val _score = MutableStateFlow(Pair(0, 0))
+    val score = _score.asStateFlow()
+
     private val _userSelected: MutableStateFlow<String> = MutableStateFlow("X")
     val userSelected = _userSelected.asStateFlow()
 
@@ -74,5 +77,14 @@ class SinglePlayerViewModel(private val repository: SinglePlayerRepository) : Vi
 
     fun setCurrentPlayer(who: String) {
         _userSelected.value = who
+    }
+
+    fun updateScore(winner:String) {
+        if (winner == "X") {
+            _score.value = Pair(score.value.first+1,score.value.second)
+
+        } else if (winner== "O") {
+            _score.value = Pair(score.value.first,score.value.second+1)
+        }
     }
 }

@@ -33,6 +33,7 @@ fun DifficultySelection(viewModel: SinglePlayerViewModel) {
         difficulties.forEach { level ->
             Button(onClick = {
                 viewModel.setDifficulty(level)
+                viewModel.resetGame()
             },
                 colors = ButtonDefaults.buttonColors(backgroundColor = if (selectedDifficulty.value == level) Colors.MattOrange else Colors.SurfaceWhite),
                 elevation = ButtonDefaults.elevation(defaultElevation = 0.dp),

@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -20,8 +19,6 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import chaintech.videoplayer.ui.audio.AudioPlayerView
-import chaintech.videoplayer.util.CMPAudioPlayer
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
@@ -33,7 +30,6 @@ import org.nmvasani.tictactoe.ui.screens.SelectionScreen
 import org.nmvasani.tictactoe.ui.screens.SettingScreen
 import org.nmvasani.tictactoe.ui.screens.SinglePlayerScreen
 import org.nmvasani.tictactoe.viewmodels.SettingViewModel
-import tictactoe.composeapp.generated.resources.Res
 
 @Composable
 @Preview
@@ -204,11 +200,15 @@ fun App(
                             )
                         },
                     ) {
-                        MultiplayerScreen(onBack = {
-                            navController.navigateUp()
-                        }, onSettingClick = {
-                            navController.navigate("setting_screen")
-                        })
+                        MultiplayerScreen(
+                            player1Name = player1Name.value,
+                            player2Name = player2Name.value,
+                            onBack = {
+                                navController.navigateUp()
+                            }, onSettingClick = {
+                                navController.navigate("setting_screen")
+                            }
+                        )
                     }
 
                     composable("setting_screen", enterTransition = {

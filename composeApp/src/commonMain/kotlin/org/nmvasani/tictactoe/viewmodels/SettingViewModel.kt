@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class SettingViewModel : ViewModel() {
-    private var _isPause = MutableStateFlow(false)
+    private var _isPause = MutableStateFlow(true)
     var isPause = _isPause.asStateFlow()
 
     private var _player1Name = MutableStateFlow("Nimesh")
@@ -38,13 +38,20 @@ class SettingViewModel : ViewModel() {
     fun loadSettings(prefs: DataStore<Preferences>) {
         viewModelScope.launch {
             prefs.data.map { it[booleanPreferencesKey("isPause")] ?: false }.collectLatest {
+                println(it)
                 _isPause.value = it
             }
+        }
+        viewModelScope .launch {
             prefs.data.map { it[stringPreferencesKey("player1Name")] ?: "Nimesh" }.collectLatest {
+                println(it)
                 _player1Name.value = it
             }
+        }
+        viewModelScope.launch {
             prefs.data.map { it[stringPreferencesKey("player2Name")] ?: "John" }.collectLatest {
-                _player1Name.value = it
+                println(it)
+                _player2Name.value = it
             }
         }
     }
