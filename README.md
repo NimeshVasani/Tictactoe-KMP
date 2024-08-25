@@ -108,6 +108,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ### 📬 Contact
 
-For feedback, questions, or collaborations, reach out at [Nimesh Vasani](https://www.nmvasani.com).
+For feedback, questions, or collaborations, reach out at with following options: 
+
+[Nimesh Vasani](https://www.nmvasani.com)
+
+
 vasaninimesh0@gmail.com
+
+
 https://www.nmvasani.com
