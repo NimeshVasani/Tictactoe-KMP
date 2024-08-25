@@ -14,7 +14,7 @@ Welcome to **Tic Tac Toe**, a modern cross-platform game developed using Kotlin 
   
 </h1>
 
-https://www.youtube.com/watch?v=2j3p_aDMTNg
+![video](https://www.youtube.com/watch?v=2j3p_aDMTNg)
 
 <video width="320" height="240" controls>
   
