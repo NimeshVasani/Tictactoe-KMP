@@ -8,6 +8,7 @@ Welcome to **Tic Tac Toe**, a modern cross-platform game developed using Kotlin 
 
 </br>
 </br>
+
 - ![Gameplay Screenshot](https://github.com/NimeshVasani/Tictactoe-KMP/blob/efa2b4afeb6b219473d4af38071b418d7e3ff435/samples/tic_tac_toe_final.jpg)
 
   
